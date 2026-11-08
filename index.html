@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<title>Fenerin Hazinesi</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="oyun"></canvas>
+
+<div id="hud">
+  <div id="solUst">
+    <div class="sira"><span id="kalpler"></span><span id="tilsimlar"></span></div>
+    <div class="sira" id="envanter"></div>
+  </div>
+  <div id="sagUst">
+    <div class="sayi"><span id="ikGem"></span><b id="sGem">0</b></div>
+    <div class="sayi"><span id="ikHazine"></span><b id="sHazine">0</b></div>
+    <div class="altin"><b id="sAltin">0</b></div>
+  </div>
+  <div id="bekciCubuk"><span data-m="bekci"></span><div id="bekciIc"><div id="bekciDolu"></div></div></div>
+  <div id="bolge"></div>
+  <div id="mesaj"></div>
+  <button id="dPause" aria-label="Duraklat">❚❚</button>
+  <div id="dokunma">
+    <div class="grup">
+      <button data-t="sol" aria-label="Sol">◀</button>
+      <button data-t="asagi" aria-label="Aşağı">▼</button>
+      <button data-t="sag" aria-label="Sağ">▶</button>
+    </div>
+    <div class="grup">
+      <button data-t="eylem" aria-label="Eylem">E</button>
+      <button data-t="zipla" class="buyuk" aria-label="Zıpla">▲</button>
+    </div>
+  </div>
+</div>
+
+<section id="menu" class="ekran">
+  <h1 data-m="baslik"></h1>
+  <p class="alt" data-m="alt"></p>
+  <div class="dugmeler">
+    <button id="bDevam" data-m="devam" hidden></button>
+    <button id="bBasla" data-m="basla"></button>
+    <div class="yatay"><button id="bDil" class="ikincil"></button><button id="bSes" class="ikincil"></button></div>
+  </div>
+  <p class="kontrol" data-m="kontroller"></p>
+</section>
+
+<section id="onay" class="ekran">
+  <h2 data-m="yeniOnay"></h2>
+  <div class="dugmeler"><button id="bHayir" data-m="hayir"></button><button id="bEvet" class="ikincil" data-m="evet"></button></div>
+</section>
+
+<section id="duraklat" class="ekran">
+  <h2 data-m="duraklat"></h2>
+  <div class="dugmeler">
+    <button id="bSurdur" data-m="surdur"></button>
+    <button id="bHarita" class="ikincil" data-m="harita"></button>
+    <button id="bSes2" class="ikincil"></button>
+    <button id="bAna" class="ikincil" data-m="ana"></button>
+  </div>
+  <p class="kontrol" data-m="kontroller"></p>
+</section>
+
+<section id="harita" class="ekran">
+  <h2 data-m="harita"></h2>
+  <canvas id="haritaTuval"></canvas>
+  <p class="kontrol" data-m="haritaAlt"></p>
+</section>
+
+<section id="son" class="ekran">
+  <h1 data-m="zafer"></h1>
+  <p class="alt" data-m="zaferAlt"></p>
+  <div id="sonuc"></div>
+  <div class="dugmeler"><button id="bTekrar" data-m="tekrar"></button></div>
+</section>
+
+<div id="yukleme">Yükleniyor / Loading…</div>
+<pre id="error" hidden></pre>
+
+<script>
+(function () {
+  var kutu = document.getElementById('error');
+  function goster(m) { kutu.hidden = false; kutu.textContent += m + '\n'; }
+  window.onerror = function (m, k, s) { goster(m + ' (' + (k || '').split('/').pop() + ':' + s + ')'); };
+  window.addEventListener('unhandledrejection', function (e) { goster(String(e.reason)); });
+  var ce = console.error; console.error = function () { ce.apply(console, arguments); goster([].join.call(arguments, ' ')); };
+})();
+</script>
+<script src="src/i18n.js"></script>
+<script src="src/level.js"></script>
+<script src="src/game.js"></script>
+<script src="src/art.js"></script>
+<script src="src/render.js"></script>
+<script src="src/audio.js"></script>
+<script src="src/main.js"></script>
+</body>
+</html>
